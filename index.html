@@ -87,9 +87,14 @@
   .btn-png:hover{background:rgba(63,185,80,.26)}
 
   /* PNG yakalama anı: butonları gizle, tüm form tam boyutta render olsun */
+  /* PNG yakalama anı: butonları gizle + form kontrollerini gizleyip
+     okunur metin değerlerini göster (PDF ile aynı görünüm, kırpılma olmaz) */
   .exporting .foot,.exporting .hint{display:none}
   .exporting .body{overflow:visible;max-height:none}
   .exporting .modal{height:auto}
+  .exporting .input,.exporting textarea,.exporting .notes-row{display:none}
+  .exporting .print-val{display:block;color:var(--text)}
+  .exporting .print-val.empty{color:var(--text3)}
 
   /* ── PRINT / SAVE AS PDF ─────────────────────────────────────────── */
   @media print{
@@ -345,7 +350,7 @@ CONFIG.sections.forEach(sec=>{
 /* Notlar */
 const nsec=document.createElement("div"); nsec.className="section";
 nsec.innerHTML='<div class="sec-title">Notlar</div>';
-const nrow=document.createElement("div"); nrow.className="row"; nrow.style.borderBottom="none";
+const nrow=document.createElement("div"); nrow.className="row notes-row"; nrow.style.borderBottom="none";
 const ta=document.createElement("textarea"); ta.rows=4; ta.placeholder="Notlarını buraya yaz...";
 ta.style.width="100%"; ta.oninput=()=>{ state._notes=ta.value; npv.textContent=ta.value||"—"; npv.classList.toggle("empty",!ta.value); };
 const npv=document.createElement("div"); npv.className="print-val empty"; npv.textContent="—";
