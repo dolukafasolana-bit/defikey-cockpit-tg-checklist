@@ -360,7 +360,7 @@ nrow.appendChild(ninp); nsec.appendChild(nrow); nsec.appendChild(npv); root.appe
 refreshConditionals();
 
 /* ── Aksiyonlar ────────────────────────────────────────────────────── */
-document.title = "DD " + COIN.name;     // PDF kaydederken varsayılan dosya adı
+document.title = COIN.name.split("/")[0].replace(/[^\w-]+/g,"_") + "_" + new Date().toISOString().slice(0,10);     // PDF varsayilan dosya adi: coin adi + tarih
 
 function savePdf(){ window.print(); }   // tarayıcı: "PDF olarak kaydet"
 
@@ -376,8 +376,8 @@ async function savePng(){
       useCORS:true
     });
     const a=document.createElement("a");
-    const safe=COIN.name.replace(/[^\w-]+/g,"_");
-    a.download=`DD_${safe}_${new Date().toISOString().slice(0,10)}.png`;
+    const safe=COIN.name.split("/")[0].replace(/[^\w-]+/g,"_");
+    a.download=`${safe}_${new Date().toISOString().slice(0,10)}.png`;
     a.href=canvas.toDataURL("image/png");
     a.click();
   }catch(e){ alert("PNG oluşturulamadı: "+e); }
